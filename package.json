@@ -1,0 +1,28 @@
+{
+  "name": "mongoose-count-and-find",
+  "version": "1.0.0",
+  "author": "Robert Hurst <rhurst@e-xact.com>",
+  "description": "A mongoose plugin that adds a count and find method for making pagination simplier",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha test.js"
+  },
+  "keywords": [
+    "mongoose",
+    "mongoose plugin",
+    "pagination",
+    "count",
+    "find",
+    "count and find",
+    "find and count"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "mocha": "^2.3.4",
+    "sinon": "^1.17.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@bitbucket.e-xact.ca:7999/x2/node_mongoose_timestamp.git"
+  }
+}
