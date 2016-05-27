@@ -5,7 +5,6 @@ function coundAndFind(schema) {
     var _this = this;
     var args  = Array.prototype.slice.call(arguments, 0);
 
-
     var cb;
     if (typeof args[args.length - 1] === 'function') {
       cb = args.pop();
