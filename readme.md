@@ -4,10 +4,11 @@ Mongoose Count & Find
 
 Mongoose Count & Find is a Mongoose plugin that provides a method,
 `countAndFind()`, for performing a count and a find at the same time. The
-point is to provide a count in addition to the documents. The important thing
-to note is that as with `find()` you can use `limit()` and `skip()`, but these
-will only affect the documents fetched, not the count. This makes the code for
-paginated results under REST simpler to program.
+point is to provide a count in addition to a set of matching documents. The
+important thing to note is that as with `countAndfind()` behaves just like
+`find()` you can use `limit()` and `skip()`, but these will only affect the
+set of matching documents fetched, not the count. This makes for simpler code
+when dealing with paginated results via REST.
 
 `countAndFind()` has exactly the same signature and behavior as the built in
 `find()` method with one exception. The `countAndFind()` calls back with the
