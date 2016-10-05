@@ -19,7 +19,7 @@
   "license": "MIT",
   "devDependencies": {
     "mocha": "^3.0.2",
-    "sinon": "^1.17.2"
+    "sinon": "^1.17.6"
   },
   "repository": {
     "type": "git",
