@@ -1,49 +1,54 @@
-
-
-function coundAndFind(schema) {
-  schema.static('countAndFind', function(    ) {
-    var _this = this;
-    var args  = Array.prototype.slice.call(arguments, 0);
-
-    var cb;
+const countAndFind = (schema) => {
+  schema.static('countAndFind', function(...args) {
+    let cb
     if (typeof args[args.length - 1] === 'function') {
-      cb = args.pop();
+      cb = args.pop()
     }
 
-    var query   = this.find.apply(this, args);
-    var orgExec = query.exec;
+    const query        = this.find.apply(this, args)
+    const originalExec = query.exec
+
+    const Model = this
 
     query.exec = function(cb) {
-      cb || (cb = function() {});
+      let promise
+      if (typeof cb !== 'function') {
+        promise = new Promise((resolve, reject) => {
+          cb = (err) => {
+            if (err) { return reject(err) }
+            resolve()
+          }
+        })
+      }
 
-      var count;
-      var documents;
+      let count
+      let documents
 
-      var finish = function(err) {
-        if (!cb) { return; }
-        if (err) { cb(err); return cb = null; }
-        if (count === undefined || documents === undefined) { return; }
-        cb(null, documents, count); cb = null;
-      };
+      const finish = (err) => {
+        if (typeof cb !== 'function') { return }
+        if (err) { cb(err); cb = null; return }
+        if (count === undefined || documents === undefined) { return }
+        cb(null, documents, count)
+      }
 
-      orgExec.call(query, function(err, _documents) {
-        if (err) { return finish(err); }
-        documents = _documents;
-        finish(null);
-      });
+      originalExec.call(query, (err, _documents) => {
+        if (err) { return finish(err) }
+        documents = _documents
+        finish(null)
+      })
 
-      _this.count(query.getQuery(), function(err, _count) {
-        if (err) { return finish(err); }
-        count = _count;
-        finish(null);
-      });
-    };
+      Model.count(query.getQuery(), (err, _count) => {
+        if (err) { return finish(err) }
+        count = _count
+        finish(null)
+      })
 
-    if (cb) { return query.exec(cb); }
+      return promise
+    }
 
-    return query;
-  });
+    if (cb) { return query.exec(cb) }
+    return query
+  })
 }
 
-
-module.exports = coundAndFind;
+module.exports = countAndFind
